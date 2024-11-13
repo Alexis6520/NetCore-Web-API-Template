@@ -1,4 +1,6 @@
 ﻿using Application.Commands.Donuts.Create;
+using Application.DTOs.Donuts;
+using Application.Queries.Donuts;
 using Application.Wrappers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +15,12 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Result<int>>> Create(CreateDonutCommand command)
         {
             return CustomResult(await Mediator.Send(command));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Result<List<DonutItemDTO>>>> GetAll()
+        {
+            return CustomResult(await Mediator.Send(new GetDonutsListQuery()));
         }
     }
 }
