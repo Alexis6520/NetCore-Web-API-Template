@@ -1,13 +1,15 @@
 ﻿using Application.Abstractions;
 using Application.Wrappers;
+using Microsoft.Extensions.Logging;
 using Services;
 using System.Net;
 
 namespace Application.Commands.Donuts.Update
 {
-    public class UpdateDonutHandler(ApplicationDbContext dbContext) : IHandler<UpdateDonutCommand>
+    public class UpdateDonutHandler(ApplicationDbContext dbContext, ILogger<UpdateDonutHandler> logger) : IHandler<UpdateDonutCommand>
     {
         private readonly ApplicationDbContext _dbContext = dbContext;
+        private readonly ILogger<UpdateDonutHandler> _logger = logger;
 
         public async Task<Result> Handle(UpdateDonutCommand request, CancellationToken cancellationToken)
         {
@@ -19,6 +21,7 @@ namespace Application.Commands.Donuts.Update
             donut.Description = request.Description;
             donut.Price = request.Price;
             await _dbContext.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation("Dona {Id} actualizada", donut.Id);
             return Result.Success();
         }
     }
