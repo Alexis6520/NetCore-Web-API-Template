@@ -1,4 +1,5 @@
 ﻿using Application.Commands.Donuts.Create;
+using Application.Commands.Donuts.Update;
 using Application.DTOs.Donuts;
 using Application.Queries;
 using Application.Queries.Donuts;
@@ -28,6 +29,14 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Result<List<DonutItemDTO>>>> GetById(int id)
         {
             return CustomResult(await Mediator.Send(new FindQuery<int, DonutDTO>(id)));
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Update(int id, UpdateDonutCommand command)
+        {
+            command.Id = id;
+            return CustomResult(await Mediator.Send(command));
         }
     }
 }
