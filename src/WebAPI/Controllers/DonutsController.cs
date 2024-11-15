@@ -1,9 +1,11 @@
-﻿using Application.Commands.Donuts.Create;
+﻿using Application.Commands;
+using Application.Commands.Donuts.Create;
 using Application.Commands.Donuts.Update;
 using Application.DTOs.Donuts;
 using Application.Queries;
 using Application.Queries.Donuts;
 using Application.Wrappers;
+using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Abstractions;
@@ -37,6 +39,13 @@ namespace WebAPI.Controllers
         {
             command.Id = id;
             return CustomResult(await Mediator.Send(command));
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return CustomResult(await Mediator.Send(new DeleteCommand<int, Donut>(id)));
         }
     }
 }
