@@ -3,6 +3,7 @@ using Infrastructure;
 using NLog;
 using NLog.Web;
 using WebAPI.Extensions;
+using WebAPI.Middlewares;
 
 var logger = LogManager.GetCurrentClassLogger();
 
@@ -39,6 +40,8 @@ try
 
     app.UseMiddleware<NLogRequestPostedBodyMiddleware>
        (new NLogRequestPostedBodyMiddlewareOptions());
+
+    app.UseMiddleware<ExceptionMiddleware>();
 
     app.MapControllers();
 
