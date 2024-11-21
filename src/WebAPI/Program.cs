@@ -50,7 +50,7 @@ try
 catch(HostAbortedException){}
 catch (Exception ex)
 {
-    logger.Error(ex, "Programa detenido por excepci�n");
+    logger.Error(ex, "Programa detenido por excepción");
     throw;
 }
 finally
