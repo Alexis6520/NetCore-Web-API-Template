@@ -39,7 +39,7 @@ try
     app.UseAuthorization();
 
     app.UseMiddleware<NLogRequestPostedBodyMiddleware>
-       (new NLogRequestPostedBodyMiddlewareOptions());
+        (new NLogRequestPostedBodyMiddlewareOptions());
 
     app.UseMiddleware<ExceptionMiddleware>();
 
@@ -47,9 +47,10 @@ try
 
     app.Run();
 }
+catch(HostAbortedException){}
 catch (Exception ex)
 {
-    logger.Error(ex, "Programa detenido por excepción");
+    logger.Error(ex, "Programa detenido por excepciï¿½n");
     throw;
 }
 finally
